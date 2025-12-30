@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I.
 
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard src/*.c)
 OBJS = $(SRCS:.c=.o)
 
 TARGET = main
@@ -12,11 +12,13 @@ run:
 	@./$(TARGET)
 
 $(TARGET): $(OBJS)
-	@$(CC) $(CFLAGS) -o $@ $^
-	@./$(TARGET)
+	@mkdir -p bin
+	@$(CC) $(CFLAGS) -o bin/$@ $^
+	@./bin/$(TARGET)
 
-%.o: %.c
+src/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	@rm -f $(OBJS) bin/$(TARGET)
+	@echo removed $(OBJS) bin/$(TARGET)
