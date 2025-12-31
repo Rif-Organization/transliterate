@@ -62,6 +62,31 @@ static const TranslitRule mapping_table[] = {
 };
 
 
+/**
+ * Transliterate a UTF-8 encoded Latin-based input string to Tifinagh.
+ *
+ * This function scans the input from left to right and, at each position,
+ * tries to match substrings against the entries in the static mapping_table.
+ * When a mapping entry's `src` sequence matches the current position in the
+ * input, the corresponding `dst` sequence is appended to the output, and the
+ * input cursor advances by the length of the matched `src`.
+ *
+ * If no mapping entry matches at the current position, the single byte at
+ * the cursor is copied unchanged to the output, and the cursor advances by
+ * one byte. Characters or sequences that are not explicitly listed in
+ * mapping_table are therefore preserved as-is in the result.
+ *
+ * Memory management:
+ *   - The function allocates a new, null-terminated output buffer on the heap
+ *     using calloc.
+ *   - Ownership of the returned buffer is transferred to the caller.
+ *   - The caller is responsible for freeing the returned pointer with free()
+ *     when it is no longer needed.
+ *
+ * \param input  Null-terminated UTF-8 string to transliterate. Must not be NULL.
+ * \return       Pointer to a newly allocated, null-terminated UTF-8 string
+ *               containing the transliterated text.
+ */
 char *transliterate(const char *input)
 {
 	char *output = calloc(sizeof(input), sizeof(input));
