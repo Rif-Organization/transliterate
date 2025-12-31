@@ -8,57 +8,57 @@
 static const TranslitRule mapping_table[] = {
     // --- 1. Spirants (Fricatives) ---
     // The image maps underlined Latin chars to specific Tifinagh spirants.
-    { "ṯ",   "ⵝ" },  // t with line below -> ⵝ (Yath)
-    { "ḏ",   "ⴸ" },  // d with line below -> ⴸ (Yadh)
-    { "ḵ",   "ⴿ" },  // k with line below -> ⴿ (Yakhh/Spirant K)
-    { "ḇ",   "ⴲ" },  // b with line below -> ⴲ (Yabh/Spirant B)
-    { "g̱",   "ⴴ" },  // g with line below -> ⴴ (Yaghh/Spirant G)
+    { "ṯ",   "ⵝ", 3, 3 },  // t with line below -> ⵝ (Yath)
+    { "ḏ",   "ⴸ", 3, 3 },  // d with line below -> ⴸ (Yadh)
+    { "ḵ",   "ⴿ", 3, 3 },  // k with line below -> ⴿ (Yakhh/Spirant K)
+    { "ḇ",   "ⴲ", 3, 3 },  // b with line below -> ⴲ (Yabh/Spirant B)
+    { "g̱",   "ⴴ", 3, 3 },  // g with line below -> ⴴ (Yaghh/Spirant G)
 
     // --- 2. Labialized Consonants ---
-    { "g°",  "ⴳⵯ" }, // g + degree symbol
-    { "k°",  "ⴽⵯ" }, // k + degree symbol
+    { "g°",  "ⴳⵯ", 3, 6 }, // g + degree symbol
+    { "k°",  "ⴽⵯ", 3, 6 }, // k + degree symbol
 
     // --- 3. Affricates & Specific Glyphs ---
-    { "č",   "ⵞ" },  // c caron -> ⵞ (Yach)
-    { "ğ",   "ⴵ" },  // g breve -> ⴵ (Yadj)
-    { "ɣ",   "ⵖ" },  // Gamma -> ⵖ (Yagh)
-    { "ε",   "ⵄ" },  // Epsilon -> ⵄ (Ayin)
+    { "č",   "ⵞ", 2, 3 },  // c caron -> ⵞ (Yach)
+    { "ğ",   "ⴵ", 2, 3 },  // g breve -> ⴵ (Yadj)
+    { "ɣ",   "ⵖ", 2, 3 },  // Gamma -> ⵖ (Yagh)
+    { "ε",   "ⵄ", 2, 3 },  // Epsilon -> ⵄ (Ayin)
 
     // --- 4. Emphatic Consonants (Dotted) ---
-    { "ḍ",   "ⴹ" },  // Emphatic D
-    { "ṭ",   "ⵟ" },  // Emphatic T
-    { "ṣ",   "ⵚ" },  // Emphatic S
-    { "ẓ",   "ⵥ" },  // Emphatic Z
-    { "ṛ",   "ⵕ" },  // Emphatic R
-    { "ḥ",   "ⵃ" },  // Emphatic H
+    { "ḍ",   "ⴹ", 3, 3 },  // Emphatic D
+    { "ṭ",   "ⵟ", 3, 3 },  // Emphatic T
+    { "ṣ",   "ⵚ", 3, 3 },  // Emphatic S
+    { "ẓ",   "ⵥ", 3, 3 },  // Emphatic Z
+    { "ṛ",   "ⵕ", 3, 3 },  // Emphatic R
+    { "ḥ",   "ⵃ", 3, 3 },  // Emphatic H
 
     // --- 5. Base Alphabet ---
-    { "a",   "ⴰ" },  //
-    { "b",   "ⴱ" },  // Standard B
-    { "c",   "ⵛ" },  // c -> Sheen
-    { "d",   "ⴷ" },  // Standard D
-    { "e",   "ⴻ" },  // Schwa
-    { "f",   "ⴼ" },  //
-    { "g",   "ⴳ" },  // Standard G
-    { "h",   "ⵀ" },  //
-    { "i",   "ⵉ" },  //
-    { "j",   "ⵊ" },  //
-    { "k",   "ⴽ" },  // Standard K
-    { "l",   "ⵍ" },  //
-    { "m",   "ⵎ" },  //
-    { "n",   "ⵏ" },  //
-    { "q",   "ⵇ" },  //
-    { "r",   "ⵔ" },  // Standard R
-    { "s",   "ⵙ" },  // Standard S
-    { "t",   "ⵜ" },  // Standard T
-    { "u",   "ⵓ" },  //
-    { "v",   "ⵠ" },  //
-    { "w",   "ⵡ" },  //
-    { "x",   "ⵅ" },  // x -> Kh
-    { "y",   "ⵢ" },  //
-    { "z",   "ⵣ" },  //
+    { "a",   "ⴰ", 1, 3 },  //
+    { "b",   "ⴱ", 1, 3 },  // Standard B
+    { "c",   "ⵛ", 1, 3 },  // c -> Sheen
+    { "d",   "ⴷ", 1, 3 },  // Standard D
+    { "e",   "ⴻ", 1, 3 },  // Schwa
+    { "f",   "ⴼ", 1, 3 },  //
+    { "g",   "ⴳ", 1, 3 },  // Standard G
+    { "h",   "ⵀ", 1, 3 },  //
+    { "i",   "ⵉ", 1, 3 },  //
+    { "j",   "ⵊ", 1, 3 },  //
+    { "k",   "ⴽ", 1, 3 },  // Standard K
+    { "l",   "ⵍ", 1, 3 },  //
+    { "m",   "ⵎ", 1, 3 },  //
+    { "n",   "ⵏ", 1, 3 },  //
+    { "q",   "ⵇ", 1, 3 },  //
+    { "r",   "ⵔ", 1, 3 },  // Standard R
+    { "s",   "ⵙ", 1, 3 },  // Standard S
+    { "t",   "ⵜ", 1, 3 },  // Standard T
+    { "u",   "ⵓ", 1, 3 },  //
+    { "v",   "ⵠ", 1, 3 },  //
+    { "w",   "ⵡ", 1, 3 },  //
+    { "x",   "ⵅ", 1, 3 },  // x -> Kh
+    { "y",   "ⵢ", 1, 3 },  //
+    { "z",   "ⵣ", 1, 3 },  //
 
-    { NULL, NULL }
+    { NULL, NULL, 0, 0 }
 };
 
 
@@ -105,12 +105,12 @@ char *transliterate(const char *input)
 	{
 		for (int i = 0; mapping_table[i].src != NULL; i++)
 		{
-			const int len = strlen(mapping_table[i].src);
+			const size_t len = mapping_table[i].src_len;
 			
 			if (strncmp(cursor, mapping_table[i].src, len) == 0)
 			{
 				cursor += len;
-				strncat(output, mapping_table[i].dst, len);
+				strncat(output, mapping_table[i].dst, mapping_table[i].dst_len);
 				matchFound = true;
 				break;
 			}
