@@ -92,7 +92,19 @@ char *transliterate(const char *input)
 	if (input == NULL)
 		return NULL;
 
-	char *output = calloc((strlen(input) * 6 + 1), sizeof(char));
+	// Calculate maximum dst_len once (static to avoid recomputation)
+	static size_t max_dst_len = 0;
+	if (max_dst_len == 0)
+	{
+		for (int i = 0; mapping_table[i].src != NULL; i++)
+		{
+			if (mapping_table[i].dst_len > max_dst_len)
+				max_dst_len = mapping_table[i].dst_len;
+		}
+	}
+
+	size_t input_len = strlen(input);
+	char *output = calloc((input_len * max_dst_len + 1), sizeof(char));
 
 	if (output == NULL)
 		return NULL;
@@ -100,6 +112,7 @@ char *transliterate(const char *input)
 
 	bool matchFound = false;
 	const char *cursor = input;
+	char *out_pos = output;
 
 	while (*cursor != '\0')
 	{
@@ -110,7 +123,8 @@ char *transliterate(const char *input)
 			if (strncmp(cursor, mapping_table[i].src, len) == 0)
 			{
 				cursor += len;
-				strncat(output, mapping_table[i].dst, mapping_table[i].dst_len);
+				memcpy(out_pos, mapping_table[i].dst, mapping_table[i].dst_len);
+				out_pos += mapping_table[i].dst_len;
 				matchFound = true;
 				break;
 			}
@@ -119,12 +133,15 @@ char *transliterate(const char *input)
 
 		if (matchFound == false)
 		{
-			strncat(output, cursor, 1);
+			*out_pos = *cursor;
+			out_pos++;
 			cursor += 1;
 		}
 
 		matchFound = false;
 	}
+
+	*out_pos = '\0';
 
 	return output;
 }
