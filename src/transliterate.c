@@ -83,12 +83,17 @@ static const TranslitRule mapping_table[] = {
  *   - The caller is responsible for freeing the returned pointer with free()
  *     when it is no longer needed.
  *
- * \param input  Null-terminated UTF-8 string to transliterate. Must not be NULL.
+ * \param input  Null-terminated UTF-8 string to transliterate. Can be NULL.
  * \return       Pointer to a newly allocated, null-terminated UTF-8 string
- *               containing the transliterated text.
+ *               containing the transliterated text, or NULL if input is NULL.
  */
 char *transliterate(const char *input)
 {
+	if (input == NULL)
+	{
+		return NULL;
+	}
+
 	char *output = calloc(sizeof(input), sizeof(input));
 	bool matchFound = false;
 
