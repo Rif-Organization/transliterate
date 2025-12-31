@@ -1,5 +1,6 @@
-# Compiled binary
+# Compiled binaries
 main
+bin/
 
 # Object files
 *.o
