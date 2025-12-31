@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -I.
+CFLAGS = -Wall -Wextra -Iinclude
 
 SRCS = $(wildcard src/*.c)
 OBJS = $(SRCS:.c=.o)
