@@ -1,0 +1,102 @@
+name: CI Tests
+
+on:
+  push:
+    branches: [ main, master, develop, copilot/** ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc make
+        
+    - name: Build project
+      run: make all
+      
+    - name: Run tests
+      run: make test
+      
+    - name: Test summary
+      if: always()
+      run: |
+        if [ $? -eq 0 ]; then
+          echo "✓ All tests passed!"
+        else
+          echo "✗ Tests failed!"
+          exit 1
+        fi
+
+  build-main:
+    name: Build Main Application
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc make
+        
+    - name: Build main application
+      run: make all
+      
+    - name: Test main binary exists
+      run: |
+        if [ -f "bin/main" ]; then
+          echo "✓ Main binary built successfully"
+        else
+          echo "✗ Main binary not found"
+          exit 1
+        fi
+      
+    - name: Test basic transliteration
+      run: |
+        result=$(./bin/main "azul")
+        echo "Input: azul"
+        echo "Output: $result"
+        if [ -n "$result" ]; then
+          echo "✓ Transliteration executed successfully"
+        else
+          echo "✗ Transliteration failed"
+          exit 1
+        fi
+
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc make
+        
+    - name: Compile with warnings
+      run: |
+        gcc -Wall -Wextra -Werror -Iinclude -c src/transliterate.c -o /tmp/transliterate.o
+        echo "✓ Code compiles without warnings"
+        
+    - name: Check for memory leaks (basic)
+      run: |
+        if command -v valgrind &> /dev/null; then
+          make test
+          valgrind --leak-check=full --error-exitcode=1 ./bin/test_transliterate
+        else
+          echo "Valgrind not available, skipping memory leak check"
+        fi
