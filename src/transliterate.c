@@ -92,16 +92,19 @@ char *transliterate(const char *input)
 	if (input == NULL)
 		return NULL;
 
-	// Calculate maximum expansion factor from mapping table
-	// Worst case: every byte matches a 1-byte src that expands to max dst_len
-	size_t max_dst_len = 0;
-	for (int i = 0; mapping_table[i].src != NULL; i++)
+	// Calculate maximum dst_len once (static to avoid recomputation)
+	static size_t max_dst_len = 0;
+	if (max_dst_len == 0)
 	{
-		if (mapping_table[i].dst_len > max_dst_len)
-			max_dst_len = mapping_table[i].dst_len;
+		for (int i = 0; mapping_table[i].src != NULL; i++)
+		{
+			if (mapping_table[i].dst_len > max_dst_len)
+				max_dst_len = mapping_table[i].dst_len;
+		}
 	}
 
-	char *output = calloc((strlen(input) * max_dst_len + 1), sizeof(char));
+	size_t input_len = strlen(input);
+	char *output = calloc((input_len * max_dst_len + 1), sizeof(char));
 
 	if (output == NULL)
 		return NULL;
