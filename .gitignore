@@ -1,3 +1,15 @@
-# Build artifacts
+# Compiled binary
+main
+
+# Object files
 *.o
-bin/
+*.obj
+
+# Editor temporary files
+*~
+*.swp
+*.swo
+
+# System files
+.DS_Store
+Thumbs.db
