@@ -90,13 +90,15 @@ static const TranslitRule mapping_table[] = {
 char *transliterate(const char *input)
 {
 	if (input == NULL)
-	{
 		return NULL;
-	}
 
-	char *output = calloc(sizeof(input), sizeof(input));
+	char *output = calloc((strlen(input) * 6 + 1), sizeof(char));
+
+	if (output == NULL)
+		return NULL;
+
+
 	bool matchFound = false;
-
 	const char *cursor = input;
 
 	while (*cursor != '\0')
@@ -108,7 +110,7 @@ char *transliterate(const char *input)
 			if (strncmp(cursor, mapping_table[i].src, len) == 0)
 			{
 				cursor += len;
-				strcat(output, mapping_table[i].dst);
+				strncat(output, mapping_table[i].dst, len);
 				matchFound = true;
 				break;
 			}
