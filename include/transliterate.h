@@ -8,4 +8,4 @@ typedef struct {
 	size_t dst_len;
 } TranslitRule;
 
-char* transliterate(const char *input);
+char *transliterate(const char *input);
